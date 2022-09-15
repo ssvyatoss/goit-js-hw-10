@@ -28,19 +28,18 @@ const onInputTxtInput = debounce(() => {
             Notiflix.Notify.info("Too many matches found. Please enter a more specific name.");
         } else if(data.length >= 2) {
             countryListEl.innerHTML = countryListTemplate(data);
-            // countryInfoEl.innerHTML = "";
         } else {
             data[0].languages = Object.values(data[0].languages).join(', ');
             countryInfoEl.innerHTML = countryInfoTemplate(data);
-            // countryListEl.innerHTML = "";
         }
     })
     .catch(err => {
         console.log(err);
+        countryListEl.innerHTML = "";
+        countryInfoEl.innerHTML = "";
         if(err.message === '404') {
             Notiflix.Notify.failure("Oops, there is no country with that name");
-            // countryListEl.innerHTML = "";
-            // countryInfoEl.innerHTML = "";
+    
         }
     });
 
