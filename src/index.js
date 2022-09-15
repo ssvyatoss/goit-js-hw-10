@@ -19,7 +19,8 @@ const onInputTxtInput = debounce(() => {
     if(countryQuery === "") {
         return;
     }
-
+    countryInfoEl.innerHTML = "";
+    countryListEl.innerHTML = "";
     fetchCountries(countryQuery)
     .then(data => {
         console.log(data);
@@ -27,17 +28,19 @@ const onInputTxtInput = debounce(() => {
             Notiflix.Notify.info("Too many matches found. Please enter a more specific name.");
         } else if(data.length >= 2) {
             countryListEl.innerHTML = countryListTemplate(data);
-            countryInfoEl.innerHTML = "";
+            // countryInfoEl.innerHTML = "";
         } else {
             data[0].languages = Object.values(data[0].languages).join(', ');
             countryInfoEl.innerHTML = countryInfoTemplate(data);
-            countryListEl.innerHTML = "";
+            // countryListEl.innerHTML = "";
         }
     })
     .catch(err => {
         console.log(err);
         if(err.message === '404') {
             Notiflix.Notify.failure("Oops, there is no country with that name");
+            // countryListEl.innerHTML = "";
+            // countryInfoEl.innerHTML = "";
         }
     });
 
@@ -48,4 +51,4 @@ const onInputTxtInput = debounce(() => {
 inputTxt.addEventListener('input', onInputTxtInput);
 
 // console.log(fetchCountries("USA"))
-// console.log(fetch("Kyiv"));
+// console.log(fetch("Kyiv"));__
